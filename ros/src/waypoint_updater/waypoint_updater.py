@@ -48,7 +48,7 @@ class WaypointUpdater(object):
         #self.loop_waypoints()
         
     def loop(self):
-        rate = rospy.Rate(20)
+        rate = rospy.Rate(15)
         while not rospy.is_shutdown():
             if self.pose and self.base_waypoints:
                 self.publish_waypoints()
@@ -89,7 +89,7 @@ class WaypointUpdater(object):
         if self.stopline_wp_idx == -1 or (self.stopline_wp_idx >= farthest_wp_idx):
             lane.waypoints = base_waypoints
         else:
-            rospy.logwarn('>detect red light<')
+            rospy.logwarn('>detect red light - slowing down<')
             lane.waypoints = self.decelerate_waypoints(base_waypoints, closest_wp_idx)
 
         return lane
@@ -123,6 +123,7 @@ class WaypointUpdater(object):
 
     def traffic_cb(self, msg):
         # Callback for /traffic_waypoint message. Implement
+
         self.stopline_wp_idx = msg.data
 
     def obstacle_cb(self, msg):

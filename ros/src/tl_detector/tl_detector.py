@@ -49,12 +49,63 @@ class TLDetector(object):
 
         self.state       = TrafficLight.UNKNOWN
         self.last_state  = TrafficLight.UNKNOWN
+        self.state_change= TrafficLight.UNKNOWN
         self.last_wp     = -1
         self.state_count = 0
 	self.camera_count = 0
         self.process_each_nth_image = 9
 
-        rospy.spin()
+	self.loop()
+
+        #rospy.spin()
+
+    def loop(self):
+        rate = rospy.Rate(20)
+        while not rospy.is_shutdown():
+            self.process_light_information()
+            rate.sleep()
+
+    def process_light_information(self):
+        """Identifies red lights in the incoming camera image and publishes the index
+            of the waypoint closest to the red light's stop line to /traffic_waypoint
+
+        Args:
+            msg (Image): image from car-mounted camera
+
+        """
+        self.has_image     = False #True
+        #self.camera_image = msg
+        light_wp, state   = self.process_traffic_lights()
+
+	#if state != self.state_change:
+        #   if state == TrafficLight.RED:
+	#      rospy.logwarn('light detected change state: RED LIGHT')
+        #   if state == TrafficLight.YELLOW:
+	#      rospy.logwarn('light detected change state: YELLOW LIGHT')
+        #   if state == TrafficLight.GREEN:
+	#      rospy.logwarn('light detected change state: GREEN LIGHT')
+        #   if state == TrafficLight.UNKNOWN:
+	#      rospy.logwarn('light detected change state: NO TRAFFIC LIGHT')
+        #self.state_change = state
+
+
+        '''
+        Publish upcoming red lights at camera frequency.
+        Each predicted state has to occur `STATE_COUNT_THRESHOLD` number
+        of times till we start using it. Otherwise the previous stable state is
+        used.
+        '''
+        if self.state != state:
+            self.state_count = 0
+            self.state       = state
+        elif self.state_count >= STATE_COUNT_THRESHOLD:
+            self.last_state = self.state
+            light_wp = light_wp if state == TrafficLight.RED else -1
+            self.last_wp = light_wp
+            self.upcoming_red_light_pub.publish(Int32(light_wp))
+        else:
+            self.upcoming_red_light_pub.publish(Int32(self.last_wp))
+        self.state_count += 1
 
     def pose_cb(self, msg):
         self.pose = msg
