@@ -2,7 +2,7 @@
 
 [Self-Driving Car Engineer Nanodegree Program Term 3 Project 14](https://eu.udacity.com/course/self-driving-car-engineer-nanodegree--nd013)
 
-This project is submitted by one person as individual and run only on simulation.
+This project is submitted by one person as individual and should be run only on simulation.
 
 ![Running demo](https://github.com/maciejewskimichal/Udacity-P14-CarND-Capstone/blob/master/final_video.gif)
 
