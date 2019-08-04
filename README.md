@@ -1,9 +1,42 @@
-This is the project repo for the final project of the Udacity Self-Driving Car Nanodegree: Programming a Real Self-Driving Car. For more information about the project, see the project introduction [here](https://classroom.udacity.com/nanodegrees/nd013/parts/6047fe34-d93c-4f50-8336-b70ef10cb4b2/modules/e1a23b06-329a-4684-a717-ad476f0d8dff/lessons/462c933d-9f24-42d3-8bdc-a08a5fc866e4/concepts/5ab4b122-83e6-436d-850f-9f4d26627fd9).
+# CarND-Capstone
+
+[Self-Driving Car Engineer Nanodegree Program Term 3 Project 14](https://eu.udacity.com/course/self-driving-car-engineer-nanodegree--nd013)
+
+This project is submitted by one person as individual and run only on simulation.
 
 ![Running demo](https://github.com/maciejewskimichal/Udacity-P14-CarND-Capstone/blob/master/final_video.gif)
 
 Full video:
 https://github.com/maciejewskimichal/Udacity-P14-CarND-Capstone/blob/master/final_video.mp4
+
+
+### For this demonstration
+* Simulator was running on Windows 10
+* ROS was running on Udacity VM with Ubuntu 16.04 created inside Oracle VM VirtualBox
+* Video was captured by OBS Studio
+* Parameters were tweaked to make possible to run such system on: 
+  * Laptop: Dell Precision 5510 
+  * CPU: Xeon 8 core E3-1505M 2.8 GHz
+  * GPU: NVIDIA Quadro M1000M
+* For running full speed demo one need to use fully installed Ubuntu system
+* I managed to compile the projects inside Windows 10 Ubuntu 18.04 subsystem with newer ROS melodic subsystem, for this:
+  * ROS melodic had to be installed
+  * dbw_mkz_msgs module has to be installed, following advice from [link](https://github.com/Praveenraj49/CarND-Capstone/blob/master/README.md) following commands were set:
+  
+```sh 
+sudo apt-get update
+sudo apt-get install -y ros-melodic-dbw-mkz-msgs
+cd /CarND-Capstone/ros
+rosdep install --from-paths src --ignore-src --rosdistro=melodic -y
+```
+  * even after all this setup still Ubuntu 18.04 running ROS code could not see simulator as it was somehow blocked by firewall?
+  * It was looking like ROS running in Ubuntu subsystem was slower from VM one
+  * for this reason final test were run on VM
+
+# Project Description
+
+This is the project repo for the final project of the Udacity Self-Driving Car Nanodegree: Programming a Real Self-Driving Car. For more information about the project, see the project introduction [here](https://classroom.udacity.com/nanodegrees/nd013/parts/6047fe34-d93c-4f50-8336-b70ef10cb4b2/modules/e1a23b06-329a-4684-a717-ad476f0d8dff/lessons/462c933d-9f24-42d3-8bdc-a08a5fc866e4/concepts/5ab4b122-83e6-436d-850f-9f4d26627fd9).
+
 
 Please use **one** of the two installation options, either native **or** docker installation.
 
