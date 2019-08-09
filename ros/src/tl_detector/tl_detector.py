@@ -52,12 +52,11 @@ class TLDetector(object):
         self.state_change= TrafficLight.UNKNOWN
         self.last_wp     = -1
         self.state_count = 0
-	self.camera_count = 0
-        self.process_each_nth_image = 9
+	#self.camera_count = 0
+        self.process_each_nth_image = 1
 
-	self.loop()
-
-        #rospy.spin()
+	#self.loop()
+        rospy.spin()
 
     def loop(self):
         rate = rospy.Rate(20)
@@ -127,10 +126,10 @@ class TLDetector(object):
             msg (Image): image from car-mounted camera
 
         """
-        if self.process_each_nth_image > 1:
-            self.camera_count = (self.camera_count + 1) % self.process_each_nth_image     # Process every 9th image on simulator
-            if self.camera_count > 0:
-                return
+        #if self.process_each_nth_image > 1:
+        #    self.camera_count = (self.camera_count + 1) % self.process_each_nth_image     # Process every 9th image on simulator
+        #    if self.camera_count > 0:
+        #        return
         self.has_image    = True
         self.camera_image = msg
         light_wp, state   = self.process_traffic_lights()
