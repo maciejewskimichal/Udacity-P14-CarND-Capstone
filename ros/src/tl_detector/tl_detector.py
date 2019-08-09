@@ -134,6 +134,17 @@ class TLDetector(object):
         self.camera_image = msg
         light_wp, state   = self.process_traffic_lights()
         rospy.logwarn("Closest light wp: {0} \n And light state: {1}".format(light_wp, state))
+	
+        if state != self.state_change:
+           if state == TrafficLight.RED:
+	      rospy.logwarn('light detected change state: RED LIGHT')
+           if state == TrafficLight.YELLOW:
+	      rospy.logwarn('light detected change state: YELLOW LIGHT')
+           if state == TrafficLight.GREEN:
+	      rospy.logwarn('light detected change state: GREEN LIGHT')
+           if state == TrafficLight.UNKNOWN:
+	      rospy.logwarn('light detected change state: NO TRAFFIC LIGHT')
+        self.state_change = state
 
         '''
         Publish upcoming red lights at camera frequency.
